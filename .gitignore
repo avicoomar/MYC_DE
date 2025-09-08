@@ -1,0 +1,3 @@
+venv/
+local/*
+!local/set_env.sh

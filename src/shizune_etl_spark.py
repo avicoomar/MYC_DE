@@ -40,11 +40,20 @@ schema=schema)
 # Run transformation
 transformed_dfs = shizune_transformations.transform_dataframes(df)
 
-# TEMP
-transformed_dfs["df"].show()
-transformed_dfs["df_desc"].show()
-transformed_dfs["df_portfolio_desc"].show()
-
 # Load Data:
+transformed_dfs["df"].write \
+    .format("parquet") \
+    .mode("overwrite") \
+    .save("s3a://elasticbeanstalk-ap-south-1-576190372469/myc/silver/shizune_investors")
 
+transformed_dfs["df_desc"].write \
+    .format("parquet") \
+    .mode("overwrite") \
+    .save("s3a://elasticbeanstalk-ap-south-1-576190372469/myc/silver/shizune_investors_desc")
+
+transformed_dfs["df_portfolio_desc"].write \
+    .format("parquet") \
+    .mode("overwrite") \
+    .save("s3a://elasticbeanstalk-ap-south-1-576190372469/myc/silver/shizune_investors_portfolio_desc")
+    
 spark.stop()
